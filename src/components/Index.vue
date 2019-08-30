@@ -18,6 +18,7 @@
     <!-- 导航条部分 -->
     <el-aside width="200px">
       <el-menu
+      router
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b">
@@ -28,7 +29,7 @@
           <span >用户管理</span>
         </template>
 
-          <el-menu-item index="1-1">
+          <el-menu-item index="user">
             <i class="el-icon-menu"></i>
           <span slot="title">用户列表</span>
           </el-menu-item>
@@ -40,11 +41,11 @@
           <span >权限管理</span>
         </template>
 
-          <el-menu-item index="2-1">
+          <el-menu-item index="roles">
             <i class="el-icon-menu"></i>
           <span slot="title">角色列表</span>
           </el-menu-item>
-          <el-menu-item index="2-2">
+          <el-menu-item index="rights">
             <i class="el-icon-menu"></i>
           <span slot="title">权限列表</span>
           </el-menu-item>
@@ -53,7 +54,9 @@
     </el-aside>
 
     <!-- main部分 -->
-    <el-main>Main</el-main>
+    <el-main>
+      <router-view></router-view>
+    </el-main>
   </el-container>
 </el-container>
 

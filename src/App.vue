@@ -15,4 +15,11 @@ body,
   width: 100%;
   height: 100%;
 }
+#app
+.el-breadcrumb {
+  border-bottom : 1px solid #ccc;
+//  margin: 10px;
+ padding-bottom:20px;
+ margin-bottom: 10px;
+}
 </style>

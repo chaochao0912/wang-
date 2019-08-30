@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
   data () {
@@ -52,44 +51,63 @@ export default {
     reset () {
       this.$refs.form.resetFields()
     },
-    loginb () {
-      this.$refs.form.validate(isValid => {
-        if (!isValid) return
-        console.log('发送请求')
-        axios.post('http://localhost:8888/api/private/v1/login', this.form).then(res => {
-          const { meta, data } = res.data
-          if (meta.status === 200) {
-            // 成功, 跳转到首页
-            console.log(meta.msg)
-            // (1) 直接默认提示
-            // this.$message(meta.msg)
-            // 把token 存到本地存储
-            localStorage.setItem('token', data.token)
-            // (2) 配置具体的提示
-            this.$message({
-              message: meta.msg,
-              type: 'success',
-              duration: 1000
-            })
-
-            // 跳转到首页, 需要有首页组件
-            // this.$router.push('/index') // 通过path进行跳转
-            this.$router.push({ name: 'index' })
-          } else {
-            // 失败, 给用户提示
-            // console.log(meta.msg)
-            // this.$message({
-            //   message: meta.msg,
-            //   type: 'error',
-            //   duration: 1000
-            // })
-
-            // (3) 直接配置提示的类型, 进行提示
-            this.$message.error(meta.msg)
-          }
-        })
-      })
+    async  loginb () {
+      try {
+        await this.$refs.form.validate()
+        const { data, meta } = await this.$axios.post('login', this.form)
+        if (meta.status === 200) {
+          console.log(meta.msg)
+          localStorage.setItem('token', data.token)
+          this.$message({
+            message: meta.msg,
+            type: 'success',
+            duration: 1000
+          })
+          this.$router.push({ name: 'index' })
+        }
+      } catch (e) {
+        console.log(e)
+      }
     }
+    // loginb () {
+    //   this.$refs.form.validate(isValid => {
+    //     if (!isValid) return
+    //     console.log('发送请求')
+    //     this.$axios.post('login', this.form).then(res => {
+    //       console.log(res)
+    //       const { meta, data } = res.data
+    //       if (meta.status === 200) {
+    //         // 成功, 跳转到首页
+    //         console.log(meta.msg)
+    //         // (1) 直接默认提示
+    //         // this.$message(meta.msg)
+    //         // 把token 存到本地存储
+    //         localStorage.setItem('token', data.token)
+    //         // (2) 配置具体的提示
+    //         this.$message({
+    //           message: meta.msg,
+    //           type: 'success',
+    //           duration: 1000
+    //         })
+
+    //         // 跳转到首页, 需要有首页组件
+    //         // this.$router.push('/index') // 通过path进行跳转
+    //         this.$router.push({ name: 'index' })
+    //       } else {
+    //         // 失败, 给用户提示
+    //         // console.log(meta.msg)
+    //         // this.$message({
+    //         //   message: meta.msg,
+    //         //   type: 'error',
+    //         //   duration: 1000
+    //         // })
+
+    //         // (3) 直接配置提示的类型, 进行提示
+    //         this.$message.error(meta.msg)
+    //       }
+    //     })
+    //   })
+    // }
   }
 }
 </script>
