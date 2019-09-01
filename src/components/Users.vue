@@ -1,5 +1,5 @@
 <template>
-  <div class="user">
+  <div class="users">
 
     <!-- 面包屑 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
@@ -292,7 +292,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.user
+.users{
 .input-with-select{
   width: 300px;
   margin-bottom: 10px;
@@ -300,4 +300,6 @@ export default {
 .addbtn{
   margin-left: 60px;
 }
+}
+
 </style>
